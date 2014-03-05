@@ -11,8 +11,9 @@ using namespace std;
 class Solution
 {
     public:
-        void sortStack(stack<int> stk)
+        stack<int> sortStack(stack<int> stk)
         {
+
         }
 };
 
