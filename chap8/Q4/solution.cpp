@@ -4,13 +4,14 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <unordered_set>
 
 using namespace std;
 
 class Solution
 {
 	public:
-		void permute(string &s, int start, vector<string> &perm)
+		void permute(string s, int start, vector<string> &perm)
 		{
 			int l = s.length();
 			if (start == l)
@@ -18,6 +19,8 @@ class Solution
 				perm.push_back(s);
 				return;
 			}
+
+            sort(s.begin()+start, s.end());
 
 			for (int i = start; i < l; i++)
 			{
@@ -58,6 +61,23 @@ void printStrings(const vector<string> &strs)
 	cout << "]" << endl;
 }
 
+bool unique(const vector<string> &strs)
+{
+    unordered_set<string> table;
+    for (int i = 0; i < strs.size(); i++)
+    {
+        if (table.find(strs[i]) != table.end())
+        {
+            return false;
+        }
+        else
+        {
+            table.insert(strs[i]);
+        }
+    }
+    return true;
+}
+
 int main()
 {
 	Solution solu;
@@ -65,22 +85,32 @@ int main()
 	string s = "";
 	vector<string> perm = solu.permutation(s);
 	printStrings(perm);
+    cout << unique(perm) << endl;
 
 	s = "1";
 	perm = solu.permutation(s);
 	printStrings(perm);
+    cout << unique(perm) << endl;
 
 	s = "11";
 	perm = solu.permutation(s);
 	printStrings(perm);
+    cout << unique(perm) << endl;
 
 	s = "112";
 	perm = solu.permutation(s);
 	printStrings(perm);
+    cout << unique(perm) << endl;
 
 	s = "123";
 	perm = solu.permutation(s);
 	printStrings(perm);
+    cout << unique(perm) << endl;
+
+	s = "23224";
+	perm = solu.permutation(s);
+	printStrings(perm);
+    cout << unique(perm) << endl;
 
 	return 0;
 }
