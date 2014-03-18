@@ -42,6 +42,16 @@ class Solution
         }
 };
 
+void destroyList(ListNode *l)
+{
+    while (l != NULL)
+    {
+        ListNode *tmp = l;
+        l = l->next;
+        delete tmp;
+    }
+}
+
 void printList(ListNode *l)
 {
     cout << "[";
@@ -92,6 +102,8 @@ int main()
     cout << k << "-th = " << solu.findKthLastElement(t, k) << endl;
     k = 7;
     cout << k << "-th = " << solu.findKthLastElement(t, k) << endl;
+
+    destroyList(t);
 
     return 0;
 }

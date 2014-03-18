@@ -51,7 +51,7 @@ class Solution
             {
                 int digit = p->val + carry;
                 t->next = new ListNode(digit%10);
-                
+
                 carry = digit / 10;
                 p = p->next;
                 t = t->next;
@@ -63,6 +63,16 @@ class Solution
             return sum;
         }
 };
+
+void destroyList(ListNode *l)
+{
+    while (l != NULL)
+    {
+        ListNode *tmp = l;
+        l = l->next;
+        delete tmp;
+    }
+}
 
 void printList(ListNode *l)
 {
@@ -94,6 +104,10 @@ int main()
     ListNode *sum = solu.addNumbers(num1, num2);
     cout << "sum   = ";
     printList(sum);
+
+    destroyList(num1);
+    destroyList(num2);
+    destroyList(sum);
 
     return 0;
 }

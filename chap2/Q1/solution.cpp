@@ -82,6 +82,16 @@ class Solution
         }
 };
 
+void destroyList(ListNode *l)
+{
+    while (l != NULL)
+    {
+        ListNode *tmp = l;
+        l = l->next;
+        delete tmp;
+    }
+}
+
 void printList(ListNode *l)
 {
     cout << "[";
@@ -125,6 +135,7 @@ int main()
     t = solu.removeDuplicates2(t);
     printList(t);
 
+    destroyList(t);
 
     return 0;
 }

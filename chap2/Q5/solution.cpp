@@ -27,7 +27,10 @@ class Solution
                 return NULL;
             }
 
-            ListNode *fast = head->next;
+            // 2*(a+b) = a + b + c + b - 1; because fast starts one step ahead
+            // a = c - 1;
+            // so need to advance c one step ahead
+            ListNode *fast = head->next;    // critical
             ListNode *slow = head;
             while (fast != NULL)
             {
@@ -42,7 +45,33 @@ class Solution
             {
                 return NULL;
             }
-            fast = fast->next;
+            fast = fast->next;      // critical
+            slow = head;
+            while (fast != slow)
+            {
+                fast = fast->next;
+                slow = slow->next;
+            }
+            return fast;
+        }
+
+        ListNode *locateLoop2(ListNode *head)
+        {
+            ListNode *fast = head;
+            ListNode *slow = NULL;
+            while (fast != NULL && fast != slow)
+            {
+                if (fast->next == NULL || fast->next->next == NULL)
+                {
+                    return NULL;
+                }
+                slow = (slow == NULL ? head->next : slow->next);
+                fast = fast->next->next;
+            }
+            if (fast == NULL)
+            {
+                return NULL;
+            }
             slow = head;
             while (fast != slow)
             {
@@ -52,6 +81,17 @@ class Solution
             return fast;
         }
 };
+
+void destroyList(ListNode *l, ListNode *node)
+{
+    while (l != NULL && l->next != node)
+    {
+        ListNode *tmp = l;
+        l = l->next;
+        delete tmp;
+    }
+    delete l;
+}
 
 void printList(ListNode *l)
 {
@@ -74,10 +114,19 @@ int main()
 
     ListNode *t = NULL;
     solu.locateLoop(t);
-    cout << solu.locateLoop(t) << endl;
+    cout << solu.locateLoop2(t) << endl;
+
     t = new ListNode(1);
-    t->next = t;
-    cout << solu.locateLoop(t) << endl;
+    t->next = new ListNode(2);
+    t->next->next = new ListNode(3);
+    t->next->next->next = new ListNode(4);
+    t->next->next->next->next = new ListNode(5);
+    t->next->next->next->next->next = t->next->next;
+
+    ListNode* node = solu.locateLoop2(t);
+    cout << node->val << endl;
+
+    destroyList(t, node);
 
     return 0;
 }

@@ -31,6 +31,16 @@ class Solution
         }
 };
 
+void destroyList(ListNode *l)
+{
+    while (l != NULL)
+    {
+        ListNode *tmp = l;
+        l = l->next;
+        delete tmp;
+    }
+}
+
 void printList(ListNode *l)
 {
     cout << "[";
@@ -60,6 +70,8 @@ int main()
     printList(t);
     solu.removeElement(t->next->next);
     printList(t);
+
+    destroyList(t);
 
     return 0;
 }
