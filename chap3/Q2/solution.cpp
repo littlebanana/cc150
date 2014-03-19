@@ -87,6 +87,5 @@ int main()
     cout << stk.pop() << endl;
     cout << "min = " << stk.min() << endl;
 
-
     return 0;
 }
